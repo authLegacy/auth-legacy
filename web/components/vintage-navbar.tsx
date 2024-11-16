@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import { FlowerIcon as GardenRose, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { VintageItemPageComponent } from "./vintage-item-page";
+import { WalletComponents } from "./wallet-connect";
 
 export function VintageNavbarComponent() {
   const [isConnected, setIsConnected] = useState(false);
@@ -27,15 +27,13 @@ export function VintageNavbarComponent() {
         <Link href="/" className="flex items-center space-x-2">
           <GardenRose className="h-8 w-8 text-sepia-800" />
           <span className="text-2xl font-bold text-sepia-800 font-serif">
-            Vintage Garden
+            Auth Legacy
           </span>
         </Link>
 
         <div className="hidden md:flex space-x-6 items-center">
           <VintageItemPageComponent />
-          <NavLink href="/explore">Explore</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
-          <NavLink href="/about">About</NavLink>
+          <NavLink href="/explore">Verify</NavLink>
           <WalletButton
             isConnected={isConnected}
             onConnect={connectWallet}
@@ -115,5 +113,5 @@ function WalletButton({
   mobile?: boolean;
 }) {
   console.log({ isConnected, onConnect, onDisconnect, mobile });
-  return <DynamicWidget />;
+  return <WalletComponents />;
 }
