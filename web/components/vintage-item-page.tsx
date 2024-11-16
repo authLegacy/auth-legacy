@@ -43,28 +43,6 @@ export function VintageItemPageComponent() {
     // Here you would typically save the item to your backend
   };
 
-  // const handleEdit = () => {
-  //   // This is just a sample item. In a real application, you'd fetch this from your data source.
-  //   const sampleItem: VintageItem = {
-  //     id: 1,
-  //     name: "Vintage Watch",
-  //     description: "A beautiful vintage watch from the 1950s",
-  //     status: "verified",
-  //     image: "https://example.com/watch.jpg",
-  //     price: 500,
-  //     numOfAttestations: 3,
-  //     yearOfOriginalPurchase: 1955,
-  //     numOfOwners: 2,
-  //     currentOwner: "John Doe",
-  //     nounUrl: "https://example.com/watch-noun",
-  //     category: "Accessories",
-  //     metaMaskAddress: "0x1234...",
-  //     isOwner: true,
-  //   };
-  //   setItemToEdit(sampleItem);
-  //   setIsPanelOpen(true);
-  // };
-
   return (
     <div className="p-6">
       <div className="space-x-4">

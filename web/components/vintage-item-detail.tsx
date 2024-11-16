@@ -3,7 +3,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import useVintageStore from "@/store/vintageStore";
 import { Award, Clock, DollarSign, Flower, Users } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "./ui/button";
 
@@ -25,8 +27,12 @@ export interface VintageItem {
   isOpen?: boolean;
 }
 
-export function VintageItemDetail({ item }: { item?: VintageItem }) {
+export function VintageItemDetail() {
   const [isHovered, setIsHovered] = useState(false);
+  const params = useParams();
+  const id = params.id;
+  const { items } = useVintageStore();
+  const item = items.find((item) => item.id === Number(id));
   if (!item) {
     return <LoadingSkeleton />;
   }
@@ -127,7 +133,7 @@ export function VintageItemDetail({ item }: { item?: VintageItem }) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <span className="mr-2">Buy the Vintage Item</span>
+                <span className="mr-2">Delist the Vintage Item</span>
                 <Flower
                   className={`w-5 h-5 transition-transform duration-300 ${
                     isHovered ? "rotate-45" : ""

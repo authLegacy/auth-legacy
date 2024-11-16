@@ -1,9 +1,12 @@
 "use client";
 
+import useFetchVintageItems from "@/hooks/useFetchVintageItems";
+import useVintageStore from "@/store/vintageStore";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Chat } from "@pushprotocol/uiweb";
 import { AlertCircle, CheckCircle, Grid, ShoppingBag } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAccount, useWalletClient } from "wagmi";
 import { OldWindowFrameComponent } from "./old-window-frame";
@@ -12,81 +15,6 @@ import { VintageItem } from "./vintage-item-detail";
 interface VintageItemCardProps {
   item: VintageItem;
 }
-
-const vintageItems: VintageItem[] = [
-  {
-    id: 1,
-    name: "Antique Pocket Watch",
-    description:
-      "A beautifully crafted timepiece from the 19th century. This exquisite piece features intricate engravings and a polished gold finish.",
-    status: "verified",
-    image: "/watch.jpg?height=400&width=300",
-    price: 299.99,
-    nounUrl: "https://noun-api.com/beta/pfp?head=223&glasses=20&background=1",
-    isOwner: true,
-    isOpen: true,
-  },
-  {
-    id: 2,
-    name: "Vintage Typewriter",
-    description:
-      "A classic Remington typewriter from the 1950s. This well-preserved machine still produces crisp, clean type and comes with its original case.",
-    status: "pending",
-    image: "/watch.jpg?height=400&width=300",
-    price: 189.5,
-    nounUrl: "https://noun-api.com/beta/pfp?head=223&glasses=20&background=1",
-    isOwner: true,
-    isOpen: false,
-  },
-  {
-    id: 3,
-    name: "Classic Vinyl Record",
-    description:
-      "Original pressing of a legendary jazz album. This rare find is in excellent condition and includes the original album artwork.",
-    status: "verified",
-    image: "/watch.jpg?height=400&width=300",
-    price: 79.99,
-    nounUrl: "https://noun-api.com/beta/pfp?head=223&glasses=20&background=1",
-    isOwner: true,
-    isOpen: false,
-  },
-  {
-    id: 4,
-    name: "Retro Camera",
-    description:
-      "A fully functional Polaroid camera from the 1970s. This iconic instant camera has been carefully restored and comes with a pack of film.",
-    status: "pending",
-    image: "/watch.jpg?height=400&width=300",
-    price: 129.0,
-    nounUrl: "https://noun-api.com/beta/pfp?head=223&glasses=20&background=1",
-    isOwner: true,
-    isOpen: true,
-  },
-  {
-    id: 5,
-    name: "Antique Oil Lamp",
-    description:
-      "A beautifully preserved oil lamp from the Victorian era. This elegant piece features hand-painted glass and intricate metalwork.",
-    status: "verified",
-    image: "/watch.jpg?height=400&width=300",
-    price: 159.95,
-    nounUrl: "https://noun-api.com/beta/pfp?head=223&glasses=20&background=1",
-    isOwner: true,
-    isOpen: true,
-  },
-  {
-    id: 6,
-    name: "Vintage Radio",
-    description:
-      "A working tube radio from the 1940s, restored to its former glory. This art deco masterpiece produces warm, rich sound quality.",
-    status: "pending",
-    image: "/watch.jpg?height=400&width=300",
-    price: 249.99,
-    nounUrl: "https://noun-api.com/beta/pfp?head=223&glasses=20&background=1",
-    isOwner: false,
-    isOpen: true,
-  },
-];
 
 function VintageItemCard({ item }: VintageItemCardProps) {
   return (
@@ -148,10 +76,14 @@ function AnimatedHeading() {
 }
 
 export function VintageItemsGridComponent() {
+  const { items } = useVintageStore();
+  useFetchVintageItems();
+
+  const router = useRouter();
+
   const { data: signer } = useWalletClient();
   const { address } = useAccount();
   const [selectedTab, setSelectedTab] = useState(0);
-  console.log("selectedTab", selectedTab);
 
   const tabs = [
     { name: "Your Items", icon: ShoppingBag },
@@ -159,9 +91,7 @@ export function VintageItemsGridComponent() {
   ];
 
   const filteredItems =
-    selectedTab === 0
-      ? vintageItems.filter((item) => item.isOwner)
-      : vintageItems;
+    selectedTab === 0 ? items.filter((item) => item.isOwner) : items;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -198,7 +128,13 @@ export function VintageItemsGridComponent() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredItems.map((item) => (
                   <OldWindowFrameComponent key={item.id} title={item.name}>
-                    <VintageItemCard key={item.id} item={item} />
+                    <div
+                      onClick={() => {
+                        router.push(`/${item.id}`);
+                      }}
+                    >
+                      <VintageItemCard key={item.id} item={item} />
+                    </div>
                   </OldWindowFrameComponent>
                 ))}
               </div>
