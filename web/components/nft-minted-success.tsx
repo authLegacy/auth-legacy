@@ -9,6 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { NFTMintCard } from "@coinbase/onchainkit/nft";
+import {
+  NFTAssetCost,
+  NFTCollectionTitle,
+  NFTCreator,
+  NFTMintButton,
+  NFTQuantitySelector,
+} from "@coinbase/onchainkit/nft/mint";
+import { NFTMedia } from "@coinbase/onchainkit/nft/view";
+
 import { CheckCircle, Flower } from "lucide-react";
 import { useState } from "react";
 
@@ -19,9 +29,21 @@ interface Props {
 export function NftMintedSuccess(props: Props) {
   const { handleSell } = props;
   const [isHovered, setIsHovered] = useState(false);
+  const [isMintSubmited, setIsMintSubmited] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 flex items-center justify-center p-4 w-full">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 flex items-center justify-center p-4 w-full flex flex-col justify-center items-center">
+      <NFTMintCard
+        contractAddress="0xC230dF736dFecc3F086043b20F18560a8Db19F19"
+        tokenId="1"
+      >
+        <NFTCreator />
+        <NFTMedia />
+        <NFTCollectionTitle />
+        <NFTQuantitySelector />
+        <NFTAssetCost />
+        <NFTMintButton />
+      </NFTMintCard>
       <Card className="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-xl border-2 border-orange-200">
         <CardHeader className="flex flex-col items-center space-y-2">
           <Avatar className="w-240 h-240 border-4 border-orange-300">

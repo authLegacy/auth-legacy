@@ -112,6 +112,5 @@ function WalletButton({
   onDisconnect: () => void;
   mobile?: boolean;
 }) {
-  console.log({ isConnected, onConnect, onDisconnect, mobile });
   return <WalletComponents />;
 }

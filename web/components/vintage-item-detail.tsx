@@ -141,7 +141,7 @@ export function VintageItemDetail() {
                 />
               </Button>
             )}
-            {!item.isOwner && (
+            {!item.isOwner && item.status === "verified" && (
               <Button
                 size={"lg"}
                 onMouseEnter={() => setIsHovered(true)}

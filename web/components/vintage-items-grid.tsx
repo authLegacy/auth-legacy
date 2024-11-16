@@ -3,7 +3,7 @@
 import useFetchVintageItems from "@/hooks/useFetchVintageItems";
 import useVintageStore from "@/store/vintageStore";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { Chat } from "@pushprotocol/uiweb";
+import { SupportChat } from "@pushprotocol/uiweb";
 import { AlertCircle, CheckCircle, Grid, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -83,6 +83,9 @@ export function VintageItemsGridComponent() {
 
   const { data: signer } = useWalletClient();
   const { address } = useAccount();
+  console.log("Signer=========:", signer);
+  console.log("Address:", address);
+
   const [selectedTab, setSelectedTab] = useState(0);
 
   const tabs = [
@@ -142,13 +145,16 @@ export function VintageItemsGridComponent() {
           ))}
         </TabPanels>
       </TabGroup>
-      <Chat
-        account={address}
-        signer={signer}
-        modalTitle="Inquire About Antique Pocket Watch"
-        greetingMsg="Antique Pocket Watch Inquiry"
-        supportAddress="0x87E36CB1998aeef490b46E3690396961dF6a41FB"
-      />
+      {address && signer && (
+        <SupportChat
+          account={address}
+          signer={signer}
+          env={"staging" as any}
+          modalTitle="Inquire About Item"
+          greetingMsg="Antique Pocket Watch Inquiry"
+          supportAddress="0x87E36CB1998aeef490b46E3690396961dF6a41FB"
+        />
+      )}
     </div>
   );
 }

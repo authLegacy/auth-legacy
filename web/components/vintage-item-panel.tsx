@@ -80,7 +80,7 @@ export function VintageItemPanelComponent({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(item);
-    console.log("Submitted item:", item);
+    console.log("here we are :", item);
     setItem({
       id: 0,
       name: "",
