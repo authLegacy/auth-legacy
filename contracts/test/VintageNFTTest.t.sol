@@ -3,21 +3,21 @@
 pragma solidity ^0.8.18;
 
 import {Test} from "forge-std/Test.sol";
-import {VintageNFT} from "../src/VintageNFT.sol";
-import {DeployVintageNFT} from "../script/DeployVintageNFT.s.sol";
+import {AuthLegacyNFT} from "../src/AuthLegacyNFT.sol";
+import {DeployAuthLegacyNFT} from "../script/DeployAuthLegacyNFT.s.sol";
 
-contract VintageNFTTest is Test {
-    DeployVintageNFT public deployer;
-    VintageNFT public vintageNft;
+contract AuthLegacyNFTTest is Test {
+    DeployAuthLegacyNFT public deployer;
+    AuthLegacyNFT public authLegacyNft;
 
     function setUp() public {
-        deployer = new DeployVintageNFT();
-        vintageNft = deployer.run();
+        deployer = new DeployAuthLegacyNFT();
+        authLegacyNft = deployer.run();
     }
 
     function testNameIsCorrect() public view {
-        string memory expectedName = "Vintage";
-        string memory actualName = vintageNft.name();
+        string memory expectedName = "AuthLegacy";
+        string memory actualName = authLegacyNft.name();
         assert(
             keccak256(abi.encodePacked(expectedName)) ==
                 keccak256(abi.encodePacked(actualName))
