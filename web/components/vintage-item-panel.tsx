@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useMintNft } from "@/hooks/useMintNft";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NftMintedSuccess } from "./nft-minted-success";
@@ -60,6 +61,11 @@ export function VintageItemPanelComponent({
   const [isMinted, setMinted] = useState(false);
   const [isSold, setSold] = useState(false);
 
+  const { mutate: mintNft, isSuccess } = useMintNft(
+    "0xC230dF736dFecc3F086043b20F18560a8Db19F19",
+    84531 // Replace with your chain ID
+  );
+
   useEffect(() => {
     if (itemToEdit) {
       setItem(itemToEdit);
@@ -78,19 +84,23 @@ export function VintageItemPanelComponent({
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(item);
-    console.log("here we are :", item);
-    setItem({
-      id: 0,
-      name: "",
-      description: "",
-      status: "pending",
-      image: "",
-      price: 0,
-      nounUrl: "",
-    });
-    setMinted(true);
+    try {
+      e.preventDefault();
+      onSubmit(item);
+      mintNft("anything");
+      setItem({
+        id: 0,
+        name: "",
+        description: "",
+        status: "pending",
+        image: "",
+        price: 0,
+        nounUrl: "",
+      });
+      setMinted(true);
+    } catch (e) {
+      setMinted(false);
+    }
     // onClose();
   };
 
@@ -234,7 +244,7 @@ export function VintageItemPanelComponent({
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center">
-          {!isSold && <NftMintedSuccess handleSell={handleSell} />}
+          {!isSold && isSuccess && <NftMintedSuccess handleSell={handleSell} />}
         </div>
       )}
       {isSold && <NftSoldSuccess />}
