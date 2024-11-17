@@ -6,11 +6,11 @@ import useVintageStore from "../store/vintageStore";
 const vintageItems: VintageItem[] = [
   {
     id: 1,
-    name: "Antique Pocket Watch",
+    name: "Vintage typewriter ",
     description:
-      "A beautifully crafted timepiece from the 19th century. This exquisite piece features intricate engravings and a polished gold finish.",
+      " featuring a vintage typewriter from the 1920s. Let me know if you'd like me to proceed with creating the other four images featuring different vintage items!",
     status: "verified",
-    image: "/watch.jpg?height=400&width=300",
+    image: "/1.jpeg?height=400&width=300",
     price: 299.99,
     nounUrl: "/pfp.svg",
     isOwner: true,
@@ -18,39 +18,40 @@ const vintageItems: VintageItem[] = [
   },
   {
     id: 2,
-    name: "Vintage Typewriter",
+    name: "Classic Vintage Watch",
     description:
-      "A classic Remington typewriter from the 1950s. This well-preserved machine still produces crisp, clean type and comes with its original case.",
+      "The 19th century, A stunning gold pocket watch with intricate engravings and Roman numeral dials. ",
     status: "pending",
-    image: "/watch.jpg?height=400&width=300",
+    image: "/watch.jpeg",
     price: 189.5,
     nounUrl: "/pfp.svg",
     isOwner: true,
     isOpen: false,
   },
+
   {
     id: 3,
-    name: "Classic Vinyl Record",
+    name: "Victorian Era Glass Oil Lamp",
     description:
-      "Original pressing of a legendary jazz album. This rare find is in excellent condition and includes the original album artwork.",
-    status: "verified",
-    image: "/watch.jpg?height=400&width=300",
-    price: 79.99,
-    nounUrl: "/pfp.svg",
-    isOwner: true,
-    isOpen: false,
-  },
-  {
-    id: 4,
-    name: "Retro Camera",
-    description:
-      "A fully functional Polaroid camera from the 1970s. This iconic instant camera has been carefully restored and comes with a pack of film.",
+      "A beautifully preserved Victorian-era oil lamp with a hand-blown glass reservoir and intricately designed metal base. The lamp's soft, warm glow captures the charm of simpler times",
     status: "pending",
-    image: "/watch.jpg?height=400&width=300",
+    image: "/6.jpeg",
     price: 129.0,
     nounUrl: "/pfp.svg",
     isOwner: true,
     isOpen: true,
+  },
+  {
+    id: 4,
+    name: "Vintage Pocket Watch",
+    description:
+      "The 19th century, A stunning gold pocket watch with intricate engravings and Roman numeral dials. ",
+    status: "verified",
+    image: "/watch.jpeg",
+    price: 79.99,
+    nounUrl: "/pfp.svg",
+    isOwner: true,
+    isOpen: false,
   },
   {
     id: 5,

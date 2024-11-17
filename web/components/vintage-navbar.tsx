@@ -26,7 +26,7 @@ export function VintageNavbarComponent() {
     <nav className="bg-sepia-100 border-b-2 border-sepia-300 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2 relative">
-          <LogoSvg className="w-48 h-24 absolute top-0" />
+          <LogoSvg className="w-48 h-[168px] absolute top-[-85px]" />
         </Link>
 
         <div className="hidden md:flex space-x-6 items-center">

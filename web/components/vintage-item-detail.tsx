@@ -98,7 +98,7 @@ export function VintageItemDetail() {
             <div className="flex items-center">
               <DollarSign className="mr-2 h-6 w-6 text-primary" />
               <span className="text-2xl font-bold">
-                ${item.price.toFixed(2)}
+                ${Number(item.price).toFixed(2)}
               </span>
             </div>
             {item.numOfAttestations !== undefined && (

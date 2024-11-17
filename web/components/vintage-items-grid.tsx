@@ -28,7 +28,7 @@ interface VintageItemCardProps {
 function VintageItemCard({ item, handleVerify }: VintageItemCardProps) {
   const { updateItem } = useVintageStore();
   return (
-    <div className=" min-h-[400px] min-w-full md:min-w-[200px] lg:min-w-[400px] bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+    <div className=" min-h-[400px] min-w-full  bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
       <div className="relative h-48">
         <Image
           src={item.image}
