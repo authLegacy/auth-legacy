@@ -1,7 +1,8 @@
 # **AuthLegacy**
-**Every item tells a story.**
 <p align="center">
-<img src="">
+<img width="498" alt="Every item tells a story." src="https://github.com/user-attachments/assets/aaab2b50-9a0e-4d9f-903b-8dd64c91e6f6">
+  
+  **Every item tells a story.**
 </p>
 <br>
 
@@ -34,3 +35,7 @@ The solution lies in creating a blockchain-based infrastructure that provides ta
 
 # Demonstration
 https://auth-legacy.site
+
+![photo_2024-11-17 08 34 25](https://github.com/user-attachments/assets/3400029f-a79e-42de-ac9b-6849233f76cf)
+![photo_2024-11-17 08 34 36](https://github.com/user-attachments/assets/c2875de3-f0cf-46cd-9c8b-dc6a36042604)
+![photo_2024-11-17 08 34 20](https://github.com/user-attachments/assets/647819a5-5663-4f47-946f-c2b493b7771c)
