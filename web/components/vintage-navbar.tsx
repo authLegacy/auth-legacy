@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { FlowerIcon as GardenRose, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import LogoSvg from "../public/logo.svg";
 import { VintageItemPageComponent } from "./vintage-item-page";
 import { WalletComponents } from "./wallet-connect";
 
@@ -24,16 +25,12 @@ export function VintageNavbarComponent() {
   return (
     <nav className="bg-sepia-100 border-b-2 border-sepia-300 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="flex items-center space-x-2">
-          <GardenRose className="h-8 w-8 text-sepia-800" />
-          <span className="text-2xl font-bold text-sepia-800 font-serif">
-            Auth Legacy
-          </span>
+        <Link href="/" className="flex items-center space-x-2 relative">
+          <LogoSvg className="w-48 h-24 absolute top-0" />
         </Link>
 
         <div className="hidden md:flex space-x-6 items-center">
           <VintageItemPageComponent />
-          <NavLink href="/explore">Verify</NavLink>
           <WalletButton
             isConnected={isConnected}
             onConnect={connectWallet}
@@ -101,12 +98,7 @@ function NavLink({
   );
 }
 
-function WalletButton({
-  isConnected,
-  onConnect,
-  onDisconnect,
-  mobile = false,
-}: {
+function WalletButton({}: {
   isConnected: boolean;
   onConnect: () => void;
   onDisconnect: () => void;

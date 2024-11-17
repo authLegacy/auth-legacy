@@ -15,11 +15,13 @@ import { useState } from "react";
 
 interface Props {
   handleSell: () => void;
+  handleApprove: () => Promise<void>;
+  isApprove: boolean;
 }
 // 0xC230dF736dFecc3F086043b20F18560a8Db19F19
 
 export function NftMintedSuccess(props: Props) {
-  const { handleSell } = props;
+  const { handleSell, isApprove } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -53,9 +55,13 @@ export function NftMintedSuccess(props: Props) {
             className="bg-orange-500 hover:bg-orange-600 text-white transition-all duration-300 ease-in-out transform"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            onClick={handleSell}
+            onClick={isApprove ? handleSell : props.handleApprove}
           >
-            <span className="mr-2">Sell on Vintage Garden</span>
+            {isApprove ? (
+              <span className="mr-2">Sell on Vintage Garden</span>
+            ) : (
+              <span className="mr-2">Approve Your Item</span>
+            )}
             <Flower
               className={`w-5 h-5 transition-transform duration-300 ${
                 isHovered ? "rotate-45" : ""

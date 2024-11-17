@@ -1,9 +1,17 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useConfirmAuthenticity } from "@/hooks/useConfirmAuthenticity";
 import useFetchVintageItems from "@/hooks/useFetchVintageItems";
 import useVintageStore from "@/store/vintageStore";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { SupportChat } from "@pushprotocol/uiweb";
 import { AlertCircle, CheckCircle, Grid, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,11 +22,13 @@ import { VintageItem } from "./vintage-item-detail";
 
 interface VintageItemCardProps {
   item: VintageItem;
+  handleVerify: (item: VintageItem) => void;
 }
 
-function VintageItemCard({ item }: VintageItemCardProps) {
+function VintageItemCard({ item, handleVerify }: VintageItemCardProps) {
+  const { updateItem } = useVintageStore();
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+    <div className=" min-h-[400px] min-w-full md:min-w-[200px] lg:min-w-[400px] bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
       <div className="relative h-48">
         <Image
           src={item.image}
@@ -50,12 +60,23 @@ function VintageItemCard({ item }: VintageItemCardProps) {
         </h2>
         <p className="text-sm text-gray-600 mb-2">{item.description}</p>
         <p className="text-lg font-bold text-gray-600 flex gap-2 items-center">
-          <img
+          <Image
             src={item.nounUrl}
-            alt="Seller"
-            className="h-12 w-12 rounded-full"
+            alt={item.name}
+            height={60}
+            width={60}
+            style={{ borderRadius: "50%" }}
           />
-          <span>${item.price.toFixed(2)}</span>
+          <span>${Number(item.price).toFixed(2)}</span>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleVerify(item);
+              updateItem(item.id, { ...item, status: "verified" });
+            }}
+          >
+            Verify
+          </Button>
         </p>
       </div>
     </div>
@@ -77,7 +98,23 @@ function AnimatedHeading() {
 
 export function VintageItemsGridComponent() {
   const { items } = useVintageStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useFetchVintageItems();
+  const { mutate: confirmAuthenticity } = useConfirmAuthenticity(
+    "0x1B72b2d12f7153b6C4d203D004790d9c8E40DbA4", // Replace with your NFT contract address
+    84532 // Replace with your chain ID
+  );
+
+  const handleVerify = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleApprove = () => {
+    confirmAuthenticity(Number(1));
+
+    setIsModalOpen(false);
+  };
 
   const router = useRouter();
 
@@ -136,7 +173,11 @@ export function VintageItemsGridComponent() {
                         router.push(`/${item.id}`);
                       }}
                     >
-                      <VintageItemCard key={item.id} item={item} />
+                      <VintageItemCard
+                        key={item.id}
+                        item={item}
+                        handleVerify={handleVerify}
+                      />
                     </div>
                   </OldWindowFrameComponent>
                 ))}
@@ -145,16 +186,42 @@ export function VintageItemsGridComponent() {
           ))}
         </TabPanels>
       </TabGroup>
-      {address && signer && (
-        <SupportChat
-          account={address}
-          signer={signer}
-          env={"staging" as any}
-          modalTitle="Inquire About Item"
-          greetingMsg="Antique Pocket Watch Inquiry"
-          supportAddress="0x87E36CB1998aeef490b46E3690396961dF6a41FB"
-        />
-      )}
+      <VerificationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onApprove={handleApprove}
+      />
     </div>
   );
 }
+interface VerificationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onApprove: () => void;
+}
+const VerificationModal = ({
+  isOpen,
+  onClose,
+  onApprove,
+}: VerificationModalProps) => {
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Verify the item</DialogTitle>
+        </DialogHeader>
+        <div className="flex flex-col items-center justify-center py-4">
+          <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
+          <p className="text-center text-sm text-gray-500">
+            Are you sure you want to verify this item?
+          </p>
+        </div>
+        <DialogFooter>
+          <Button onClick={onApprove} className="w-full">
+            Verify Authenticity
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};

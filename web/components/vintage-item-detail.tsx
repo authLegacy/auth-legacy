@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import useVintageStore from "@/store/vintageStore";
 import { Award, Clock, DollarSign, Flower, Users } from "lucide-react";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "./ui/button";
@@ -54,10 +55,18 @@ export function VintageItemDetail() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="relative w-full h-[50vh] mb-8">
-        <img
+        <Image
+          src={item.nounUrl}
+          alt={item.name}
+          height={60}
+          width={60}
+          style={{ borderRadius: "50%" }}
+        />
+        <Image
           src={item.image}
           alt={item.name}
-          className="w-full h-[500px] rounded-lg"
+          layout="fill"
+          objectFit="cover"
         />
         <div className="absolute top-4 right-4">
           <Badge
