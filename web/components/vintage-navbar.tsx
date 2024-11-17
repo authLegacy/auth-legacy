@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import LogoSvg from "../public/logo.svg";
+import LogoSvg from "./Logo.svg";
 import { VintageItemPageComponent } from "./vintage-item-page";
 import { WalletComponents } from "./wallet-connect";
 
